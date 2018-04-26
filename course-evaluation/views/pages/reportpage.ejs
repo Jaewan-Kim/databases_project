@@ -1,0 +1,42 @@
+
+
+<form action = "/submitreport">
+	<label>Class</label>
+	<select name="course_id">
+		<% for(var i=0; i < courses.length; i++) { %>
+		   <option value=<%= courses[i].course_id %> >
+		     <%= courses[i].course_name %>
+		   </option>
+		<% } %>
+	</select>
+	<br></br>
+	<label>Week</label>
+	<select name = "week">
+		<% for(var i=1; i < 13; i++) { %>
+		   <option value= <%= i %>>
+		     <%= i %>
+		   </option>
+		<% } %>
+	</select>
+
+	<div>
+		<% for(var i=0; i < questions.length; i++) { %>
+			<p>
+				<%= questions[i].question_detail %>
+			</p>
+			<div>
+				<label>Disagree</label>
+				<input type ="radio" name=<%= questions[i].question_id %> id="disagree" value="1" required>
+				<label>Neutral</label>
+				<input type ="radio" name=<%= questions[i].question_id %> id="neutral" value="2">
+				<label>Agree</label>
+				<input type ="radio" name=<%= questions[i].question_id %> id="agree" value="3">
+			</div>
+			<br></br>
+		<% } %> 
+	</div>
+	<button type="submit">Submit</button>
+	<br></br>
+	<% if (req.session.flash && req.session.flash.error) { %><%=req.flash('error')%><% } %>
+
+</form>
