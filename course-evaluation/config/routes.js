@@ -43,6 +43,11 @@ module.exports.routes = {
 
   '/loginpage':{
     view: 'pages/login',
+    locals:{
+      customcss:[
+        "styles/login.css"
+      ]
+    }
   },
 
   '/login':{
@@ -52,6 +57,11 @@ module.exports.routes = {
 
   '/reportpage':{
       view:'pages/reportpage',
+      locals:{
+        customcss:[
+          "styles/reportpage.css"
+        ]
+      }
 
   },
 

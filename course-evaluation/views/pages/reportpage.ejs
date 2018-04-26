@@ -1,8 +1,9 @@
 
-
 <form action = "/submitreport">
-	<label>Class</label>
-	<select name="course_id">
+	<div id = "dropdown">
+	<br></br>
+	<label class="lb">Class</label>
+	<select class = "dd" name="course_id">
 		<% for(var i=0; i < courses.length; i++) { %>
 		   <option value=<%= courses[i].course_id %> >
 		     <%= courses[i].course_name %>
@@ -10,14 +11,16 @@
 		<% } %>
 	</select>
 	<br></br>
-	<label>Week</label>
-	<select name = "week">
+	<label class = "lb">Week</label>
+	<select class="dd" name = "week">
 		<% for(var i=1; i < 13; i++) { %>
 		   <option value= <%= i %>>
 		     <%= i %>
 		   </option>
 		<% } %>
 	</select>
+	<br></br>
+	</div>
 
 	<div>
 		<% for(var i=0; i < questions.length; i++) { %>

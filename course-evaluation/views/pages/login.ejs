@@ -1,13 +1,20 @@
-<form action="/login" method = "post">
-	<div>
-		<input type="text" placeholder = "Enter Email" name = "email" required="">
-	</div>
-	<div>
-		<input type="password" placeholder = "Enter Password" name = "pword" required="">
-	</div>
-	<button type="submit">Login</button>
-	<br></br>
-<% if (req.session.flash && req.session.flash.error) { %><%=req.flash('error')%><% } %>
 
-	
-</form>
+<div id = "loginwrapper">
+	<form action="/login" method = "post" id="loginform">
+		<div>
+			<input type="text" id= "emailform" placeholder = "Enter Email" name = "email" required="">
+		</div>
+		<div>
+			<input type="password" id = "passwordform" placeholder = "Enter Password" name = "pword" required="">
+		</div>
+		<button type="submit" id="loginbutton">Login</button>
+		<br></br>
+		
+		
+	</form>
+</div>
+
+
+<div id="alert">
+		<% if (req.session.flash && req.session.flash.error) { %><%=req.flash('error')%><% } %>
+		</div>
