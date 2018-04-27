@@ -29,9 +29,10 @@ module.exports = {
 					let questionslist = new Promise(function(resolve, reject){
 						for (i = 0; i < result.length;i++){
 							var answer = req.param(result[i].question_id,'')
-							report_input[result[i].question_id] = answer
+							report_input["response_"+result[i].question_id] = answer
 							x++;
 							if(result.length == x){
+								report_input["comments"]=req.param('comments');
 								resolve(report_input)
 							}
 						}

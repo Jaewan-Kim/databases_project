@@ -1,7 +1,10 @@
 module.exports = {
 	tableName:'student_report',
 	connection: 'evaluation',
-	migrate: 'create',
+	migrate: 'create', 
+	primaryKey: 'email',
+ 	autocreatedAt : false,
+	autoupdatedAt : false,
 	attributes:{
 		course_id:{
 			type:'int'
@@ -10,7 +13,8 @@ module.exports = {
 			type:'int'
 		},
 		email:{
-			type:'string'
+			type:'string',
+			primaryKey:true,
 		},
 		report_id:{
 			type:'int'

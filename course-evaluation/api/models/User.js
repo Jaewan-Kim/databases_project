@@ -1,10 +1,15 @@
 module.exports = {
 	tableName:'login_info',
-	connection: 'evaluation',
+	connection: 'evaluation',  
+	primaryKey: 'email',
+ 	autocreatedAt : false,
+	autoupdatedAt : false,
+
 	migrate: 'create',
 	attributes:{
 		email:{
-			type:'string'
+			type:'string',
+			primaryKey:true,
 		},
 		password:{
 			type:'string'
