@@ -1,4 +1,4 @@
-<% if (req.session.flash && req.session.flash.error) { %><%=req.flash('error')%><% } %>
+
 
 <form action = "/submitreport">
 	<div id = "dropdown">
@@ -22,13 +22,17 @@
 	</select>
 	<br></br>
 	</div>
+	<div id = "error">
+<% if (req.session.flash && req.session.flash.error) { %><%=req.flash('error')%><% } %>
+</div>
 
-	<div>
+	<div id = "questionsform">
+	<br></br>
 		<% for(var i=0; i < questions.length; i++) { %>
-			<p>
+			<div id="questions">
 				<%= questions[i].question_detail %>
-			</p>
-			<div>
+			</div>
+			<div id="answers">
 				<label>Strongly disagree</label>
 				<input type ="radio" name=<%= questions[i].question_id %> id="sdisagree" value="1" required>
 				<label>Disagree</label>
@@ -42,10 +46,12 @@
 			</div>
 			<br></br>
 		<% } %> 
+			<div id = "please">
+		    Please add any comments below.</div>
+		<textarea id = "comments" name="comments" cols="65" rows="5"></textarea> 
+
 	</div>
-	<textarea name="comments" cols="45" rows="5"></textarea> 
-	<br></br>
-	<button type="submit">Submit</button>
+	<button id="submitbutton" type="submit">Submit</button>
 	<br></br>
 
 </form>
