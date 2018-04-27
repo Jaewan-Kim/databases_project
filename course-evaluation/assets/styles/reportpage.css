@@ -8,9 +8,6 @@
 }
 
 .lb{
-
-
-
 	width:200px;
 	font-size:24px;
 	border-radius: 5px;
@@ -64,7 +61,12 @@
 	margin-left:20px;
 }
 
-#submitbutton{
+#logout{
+	float:right;
+	margin-right:5%;
+}
+
+.userbutton{
 	margin-left:2%;
 	font-family:"Arial";
 	font-size:30px;

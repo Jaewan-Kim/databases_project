@@ -55,6 +55,10 @@ module.exports.routes = {
     action:'login'
   },
 
+  '/logout':{
+    controller:'User',
+    action:'logout'
+  },
   '/reportpage':{
       view:'pages/reportpage',
       locals:{

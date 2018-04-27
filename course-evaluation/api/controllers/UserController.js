@@ -4,7 +4,10 @@ module.exports = {
 
 		res.redirect('/loginpage');
 	},
+	logout: function(req,res){
+		return res.view('pages/login')
 
+	},	
 
 
 	login: function(req, res){
