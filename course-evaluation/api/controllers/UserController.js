@@ -23,7 +23,13 @@ module.exports = {
 
 				req.session.userEmail = userInfo.email;
 				if (userInfo.isadmin){
-					res.redirect('/adminpage')
+					ProfessorCourse.query('SELECT c.course_id, c.course_name FROM professor_course p, courses c WHERE p.email = ? AND c.course_id = p.course_id', [userInfo.email], function(err, courses){
+						courses=JSON.parse(JSON.stringify(courses))
+						return res.view('pages/adminpage', {courses:courses})
+
+					})
+
+
 				}
 				var courses = [];
 				Enrollment.find({email:email}, function(err,enrollInfo){
