@@ -25,6 +25,7 @@ module.exports = {
 				if (userInfo.isadmin){
 					ProfessorCourse.query('SELECT c.course_id, c.course_name FROM professor_course p, courses c WHERE p.email = ? AND c.course_id = p.course_id', [userInfo.email], function(err, courses){
 						courses=JSON.parse(JSON.stringify(courses))
+						req.session.courses = courses
 						return res.view('pages/adminpage', {courses:courses})
 
 					})

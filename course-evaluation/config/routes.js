@@ -77,6 +77,10 @@ module.exports.routes = {
     controller:'Report',
     action:'submit'
   },
+  '/generatereport':{
+    controller:'Report',
+    action:'generatereport'
+  }
 
   /***************************************************************************
   *                                                                          *

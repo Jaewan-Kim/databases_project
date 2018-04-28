@@ -56,5 +56,34 @@ module.exports = {
 		})
 
 		
+	},
+	generatereport:function(req,res){
+
+		if(req.param('reporttype','')== "comments"){
+
+			var courseid = req.param('courseid','')
+			var email = req.session.userEmail
+			var week = req.param('week','')
+			if(week == 0){
+				StudentReport.query('SELECT r.comments FROM student_report sr, reports r WHERE sr.course_id = ? AND sr.report_id = r.report_id',[courseid],function(err,comments){
+					comments= JSON.parse(JSON.stringify(comments))
+
+					res.view('pages/commentspage',{comments:comments})
+
+				})
+			}
+			else{
+				StudentReport.query('SELECT r.comments FROM student_report sr, reports r WHERE sr.course_id = ? AND sr.report_id = r.report_id AND sr.week= ?',[courseid, week],function(err,comments){
+					comments= JSON.parse(JSON.stringify(comments))
+
+					res.view('pages/commentspage',{comments:comments})
+
+
+				})
+			}
+		}
+		else{
+
+		}
 	}
 };
