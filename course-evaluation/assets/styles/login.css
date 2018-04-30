@@ -47,3 +47,26 @@
 	text-decoration-color: yellow;
 
 }
+
+
+
+#commentswrapper{
+	background-color:rgb(229, 196, 242);
+	width:900px;
+	border-radius:10px;
+	margin-top:20px;
+	margin-left:2%;
+	font-family:"Arial";
+}
+
+
+table{
+	border-collapse: collapse;
+}
+table, th, td {
+    border: 2px solid rgb(112, 112, 112);
+    width:810px;
+    margin-left:45px;
+    font-size:24px;
+    margin-right:45px;
+}

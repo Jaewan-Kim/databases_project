@@ -1,9 +1,22 @@
+
+<div id="logout" >
+	<a class ="userbutton" href="/logout">Logout</a>
+</div>
+
+
+<div id="commentswrapper">
+<br></br>
 <% for(var i=0; i < comments.length; i++) { %>
-	<%= comments[i].comments %>
-	<br></br>
+	<table>
+	<td><%= comments[i].comments %></td>
+	</table>
 <% } %> 
 
 <% if(comments.length==0) { %>
-	No comments to show.
+	...No comments to show.
 <% } %> 
+<br></br>
+</div>
 
+<br></br>
+<a href="javascript:history.back()" class = "userbutton">Create another report</a>

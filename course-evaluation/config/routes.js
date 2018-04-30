@@ -80,6 +80,14 @@ module.exports.routes = {
   '/generatereport':{
     controller:'Report',
     action:'generatereport'
+  },
+  '/totwoclasses':{
+    controller:'Report',
+    action:'totwoclasses'
+  },
+  '/twoclasses':{
+    controller:'Report',
+    action:'twoclasses'
   }
 
   /***************************************************************************

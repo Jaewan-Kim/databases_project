@@ -8,11 +8,11 @@
 <% if (req.session.flash && req.session.flash.error) { %><%=req.flash('error')%><% } %>
 </div>
 
-<form action="/generatereport">
+<form action="/twoclasses">
 	<div id = "dropdown">
 		<br></br>
-		<label class="lb">Class_</label>
-		<select class = "dd" name="courseid">
+		<label class="lb">Class 1</label>
+		<select class = "dd" name="courseid1">
 			<% for(var i=0; i < courses.length; i++) { %>
 			   <option value=<%= courses[i].course_id %> >
 			     <%= courses[i].course_name %>
@@ -20,8 +20,8 @@
 			<% } %>
 		</select>
 		<br></br>
-		<label class = "lb">Week_</label>
-		<select class="dd" name = "week">
+		<label class = "lb">Week 1</label>
+		<select class="dd" name = "week1">
 
 			<option value=0>
 				All Weeks
@@ -33,20 +33,32 @@
 			<% } %>
 		</select>
 		<br></br>
-		<label class="lb">Option</label>
-		<select class="dd" name = "reporttype">
-			<option value="metric">
-				View metrics
+
+		<br></br>
+		<label class="lb">Class 2</label>
+		<select class = "dd" name="courseid2">
+			<% for(var i=0; i < courses.length; i++) { %>
+			   <option value=<%= courses[i].course_id %> >
+			     <%= courses[i].course_name %>
+			   </option>
+			<% } %>
+		</select>
+		<br></br>
+		<label class = "lb">Week 2</label>
+		<select class="dd" name = "week2">
+
+			<option value=0>
+				All Weeks
 			</option>
-			<option value="comments">
-				View comments
-			</option>
+			<% for(var i=1; i < 13; i++) { %>
+			   <option value= <%= i %>>
+			     <%= i %>
+			   </option>
+			<% } %>
 		</select>
 		<br></br>
 		</div>
 		<button type="submit" class ="userbutton">Submit</button>
+		</div>
 
 </form>
-
-<br></br>
-<a href="/totwoclasses" class = "userbutton">Click to compare two classes</a>
