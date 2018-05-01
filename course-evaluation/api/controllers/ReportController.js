@@ -59,6 +59,7 @@ module.exports = {
 	},
 	generatereport:function(req,res){
 
+
 		var courseid = req.param('courseid','')
 		var email = req.session.userEmail
 		var week = req.param('week','')
@@ -104,7 +105,6 @@ module.exports = {
 						res.view('pages/adminpage', {courses:req.session.courses})
 
 					}
-					console.log(reports)
 					let reportslist = new Promise(function(resolve, reject){
 						var r1=0
 						var r2=0
@@ -118,8 +118,6 @@ module.exports = {
 							r3 = r3+reports[i].response_3
 							r4 = r4+reports[i].response_4
 							r5 = r5+reports[i].response_5
-							console.log(reports[i].response_1)
-							console.log(r1)
 
 							x++;
 							if(reports.length == x){
@@ -132,13 +130,13 @@ module.exports = {
 									response4:r4,									
 									response5:r5,									
 								}
-								var ratio = {
-									reponse1:r1/total,
-									reponse2:r2/total,
-									reponse3:r3/total,
-									reponse4:r4/total,
-									reponse5:r5/total
-								}
+								var ratio = [
+								r1/total,
+								r2/total,
+								r3/total,
+								r4/total,
+								r5/total,
+								]
 								var response={
 									raw:raw,
 									ratio:ratio,
@@ -152,21 +150,36 @@ module.exports = {
 					})
 
 					reportslist.then(function(response){
-						console.log(response)
-						res.view('pages/oneclass')
+						
+						Question.find({},function(err, questions){
+							question_details = [
+								questions[0]["question_detail"],
+								questions[1]["question_detail"],
+								questions[2]["question_detail"],
+								questions[3]["question_detail"],
+								questions[4]["question_detail"],
+							]
+
+							res.view('pages/oneclass', {response:response, questions:question_details})
+
+						})
+
+
+					
+
 					})
 
 
 				})
 			}
 			else{
-				StudentReport.query('SELECT r.* FROM student_report sr, reports r WHERE sr.week = ? AND sr.course_id = ? AND r.report_id = sr.report_id',[week, courseid],function(err, reports){
+				StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id AND sr.week = ?',[courseid, week],function(err, reports){
 					reports= JSON.parse(JSON.stringify(reports))
 					if (reports.length == 0){
 						req.flash('error', 'There are no reports available for this course/week')
 						res.view('pages/adminpage', {courses:req.session.courses})
-					}
 
+					}
 					let reportslist = new Promise(function(resolve, reject){
 						var r1=0
 						var r2=0
@@ -180,8 +193,6 @@ module.exports = {
 							r3 = r3+reports[i].response_3
 							r4 = r4+reports[i].response_4
 							r5 = r5+reports[i].response_5
-							console.log(reports[i].response_1)
-							console.log(r1)
 
 							x++;
 							if(reports.length == x){
@@ -194,18 +205,19 @@ module.exports = {
 									response4:r4,									
 									response5:r5,									
 								}
-								var ratio = {
-									reponse1:r1/total,
-									reponse2:r2/total,
-									reponse3:r3/total,
-									reponse4:r4/total,
-									reponse5:r5/total
-								}
+								var ratio = [
+								r1/total,
+								r2/total,
+								r3/total,
+								r4/total,
+								r5/total,
+								]
 								var response={
 									raw:raw,
 									ratio:ratio,
 									total:reports.length
 								}
+								
 								resolve(response)
 							}
 						}
@@ -213,10 +225,25 @@ module.exports = {
 					})
 
 					reportslist.then(function(response){
-						console.log(response)
-					})
+						
+						Question.find({},function(err, questions){
+							question_details = [
+								questions[0]["question_detail"],
+								questions[1]["question_detail"],
+								questions[2]["question_detail"],
+								questions[3]["question_detail"],
+								questions[4]["question_detail"],
+							]
+
+							res.view('pages/oneclass', {response:response, questions:question_details})
+
+						})
+
 
 					
+
+					})
+
 
 				})
 			}
@@ -238,6 +265,28 @@ module.exports = {
 		if(c1==c2 && w1 == w2){
 				req.flash('error', 'You cannot choose the same exact course and week!')
 				res.redirect('back')
+		}
+
+		if (w1==0){
+			//both are all weeks!
+			if(w2==0){
+
+			}
+			//only the first course is all weeks
+			else{
+
+			}
+		}
+		else{
+			//only week 2 is all weeks!
+			if(w2==0){
+
+			}
+			//neither are all weeks
+			else{
+
+			}
+
 		}
 	}
 };

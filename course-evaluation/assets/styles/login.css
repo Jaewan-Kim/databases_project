@@ -70,3 +70,7 @@ table, th, td {
     font-size:24px;
     margin-right:45px;
 }
+
+.numbertable{
+	width:200px;
+}
