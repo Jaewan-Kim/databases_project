@@ -15,8 +15,8 @@
 <% for(var i=0; i < 5; i++) { %>
     <tr>
     <td><%= questions[i] %></td>
-    <td class="numbertable"><%= response1["ratio"][i] %></td>
-    <td class="numbertable"><%= response2["ratio"][i] %></td>
+    <td class="numbertable"><%= response1["ratio"][i].toFixed(2) %></td>
+    <td class="numbertable"><%= response2["ratio"][i].toFixed(2) %></td>
     </tr>
 <% } %> 
     </table>
