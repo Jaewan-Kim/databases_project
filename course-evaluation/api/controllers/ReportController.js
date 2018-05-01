@@ -270,21 +270,585 @@ module.exports = {
 		if (w1==0){
 			//both are all weeks!
 			if(w2==0){
+				StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id',[c1],function(err, reports1){
+					reports1= JSON.parse(JSON.stringify(reports1))
+					if (reports1.length == 0){
+						req.flash('error', 'There are no reports available for one of the courses/weeks')
+						res.view('pages/adminpage', {courses:req.session.courses})
+
+					}
+					let reportslist1 = new Promise(function(resolve, reject){
+						var r1=0
+						var r2=0
+						var r3=0
+						var r4=0
+						var r5=0
+						var x=0
+						for (i = 0; i < reports1.length;i++){
+							r1 = r1+reports1[i].response_1
+							r2 = r2+reports1[i].response_2
+							r3 = r3+reports1[i].response_3
+							r4 = r4+reports1[i].response_4
+							r5 = r5+reports1[i].response_5
+
+							x++;
+							if(reports1.length == x){
+								
+								var total =reports1.length
+								var raw={
+									response1:r1,									
+									response2:r2,									
+									response3:r3,									
+									response4:r4,									
+									response5:r5,									
+								}
+								var ratio = [
+								r1/total,
+								r2/total,
+								r3/total,
+								r4/total,
+								r5/total,
+								]
+								var response={
+									raw:raw,
+									ratio:ratio,
+									total:reports1.length
+								}
+								
+								resolve(response)
+							}
+						}
+
+					})
+
+					reportslist1.then(function(response1){
+						
+						Question.find({},function(err, questions){
+							question_details = [
+								questions[0]["question_detail"],
+								questions[1]["question_detail"],
+								questions[2]["question_detail"],
+								questions[3]["question_detail"],
+								questions[4]["question_detail"],
+							]
+
+							
+
+
+
+							StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id',[c2],function(err, reports2){
+								reports2= JSON.parse(JSON.stringify(reports2))
+								if (reports2.length == 0){
+						req.flash('error', 'There are no reports available for one of the courses/weeks')
+									res.view('pages/adminpage', {courses:req.session.courses})
+
+								}
+								let reportslist2 = new Promise(function(resolve, reject){
+									var r1=0
+									var r2=0
+									var r3=0
+									var r4=0
+									var r5=0
+									var x=0
+									for (i = 0; i < reports2.length;i++){
+										r1 = r1+reports2[i].response_1
+										r2 = r2+reports2[i].response_2
+										r3 = r3+reports2[i].response_3
+										r4 = r4+reports2[i].response_4
+										r5 = r5+reports2[i].response_5
+
+										x++;
+										if(reports2.length == x){
+											
+											var total =reports2.length
+											var raw={
+												response1:r1,									
+												response2:r2,									
+												response3:r3,									
+												response4:r4,									
+												response5:r5,									
+											}
+											var ratio = [
+											r1/total,
+											r2/total,
+											r3/total,
+											r4/total,
+											r5/total,
+											]
+											var response={
+												raw:raw,
+												ratio:ratio,
+												total:reports2.length
+											}
+											
+											resolve(response)
+										}
+									}
+
+								})
+
+								reportslist2.then(function(response2){
+									
+
+										res.view('pages/twoclassesreport', {response1:response1, response2:response2, questions:question_details})
+
+									})
+
+
+								
+
+
+							})
+//
+
+						})
+
+
+					
+
+					})
+
+
+				})
 
 			}
 			//only the first course is all weeks
 			else{
+				StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id',[c1],function(err, reports1){
+					reports1= JSON.parse(JSON.stringify(reports1))
+					if (reports1.length == 0){
+						req.flash('error', 'There are no reports available for one of the courses/weeks')
 
+						res.view('pages/adminpage', {courses:req.session.courses})
+
+					}
+					let reportslist1 = new Promise(function(resolve, reject){
+						var r1=0
+						var r2=0
+						var r3=0
+						var r4=0
+						var r5=0
+						var x=0
+						for (i = 0; i < reports1.length;i++){
+							r1 = r1+reports1[i].response_1
+							r2 = r2+reports1[i].response_2
+							r3 = r3+reports1[i].response_3
+							r4 = r4+reports1[i].response_4
+							r5 = r5+reports1[i].response_5
+
+							x++;
+							if(reports1.length == x){
+								
+								var total =reports1.length
+								var raw={
+									response1:r1,									
+									response2:r2,									
+									response3:r3,									
+									response4:r4,									
+									response5:r5,									
+								}
+								var ratio = [
+								r1/total,
+								r2/total,
+								r3/total,
+								r4/total,
+								r5/total,
+								]
+								var response={
+									raw:raw,
+									ratio:ratio,
+									total:reports1.length
+								}
+								
+								resolve(response)
+							}
+						}
+
+					})
+
+					reportslist1.then(function(response1){
+						
+						Question.find({},function(err, questions){
+							question_details = [
+								questions[0]["question_detail"],
+								questions[1]["question_detail"],
+								questions[2]["question_detail"],
+								questions[3]["question_detail"],
+								questions[4]["question_detail"],
+							]
+
+							
+
+
+
+							StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id AND sr.week = ?',[c2, w2],function(err, reports2){
+								reports2= JSON.parse(JSON.stringify(reports2))
+								if (reports2.length == 0){
+									req.flash('error', 'There are no reports available for one of the courses/weeks')
+
+									res.view('pages/adminpage', {courses:req.session.courses})
+
+								}
+								let reportslist2 = new Promise(function(resolve, reject){
+									var r1=0
+									var r2=0
+									var r3=0
+									var r4=0
+									var r5=0
+									var x=0
+									for (i = 0; i < reports2.length;i++){
+										r1 = r1+reports2[i].response_1
+										r2 = r2+reports2[i].response_2
+										r3 = r3+reports2[i].response_3
+										r4 = r4+reports2[i].response_4
+										r5 = r5+reports2[i].response_5
+
+										x++;
+										if(reports2.length == x){
+											
+											var total =reports2.length
+											var raw={
+												response1:r1,									
+												response2:r2,									
+												response3:r3,									
+												response4:r4,									
+												response5:r5,									
+											}
+											var ratio = [
+											r1/total,
+											r2/total,
+											r3/total,
+											r4/total,
+											r5/total,
+											]
+											var response={
+												raw:raw,
+												ratio:ratio,
+												total:reports2.length
+											}
+											
+											resolve(response)
+										}
+									}
+
+								})
+
+								reportslist2.then(function(response2){
+									
+
+										res.view('pages/twoclassesreport', {response1:response1,response2:response2, questions:question_details})
+
+									})
+
+
+								
+
+
+							})
+//
+
+						})
+
+
+					
+
+					})
+
+
+				})
 			}
 		}
 		else{
 			//only week 2 is all weeks!
 			if(w2==0){
+				StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id AND sr.week = ?',[c1, w1],function(err, reports1){
+					reports1= JSON.parse(JSON.stringify(reports1))
+					if (reports1.length == 0){
+						req.flash('error', 'There are no reports available for one of the courses/weeks')
 
+						res.view('pages/adminpage', {courses:req.session.courses})
+
+					}
+					let reportslist1 = new Promise(function(resolve, reject){
+						var r1=0
+						var r2=0
+						var r3=0
+						var r4=0
+						var r5=0
+						var x=0
+						for (i = 0; i < reports1.length;i++){
+							r1 = r1+reports1[i].response_1
+							r2 = r2+reports1[i].response_2
+							r3 = r3+reports1[i].response_3
+							r4 = r4+reports1[i].response_4
+							r5 = r5+reports1[i].response_5
+
+							x++;
+							if(reports1.length == x){
+								
+								var total =reports1.length
+								var raw={
+									response1:r1,									
+									response2:r2,									
+									response3:r3,									
+									response4:r4,									
+									response5:r5,									
+								}
+								var ratio = [
+								r1/total,
+								r2/total,
+								r3/total,
+								r4/total,
+								r5/total,
+								]
+								var response={
+									raw:raw,
+									ratio:ratio,
+									total:reports1.length
+								}
+								
+								resolve(response)
+							}
+						}
+
+					})
+
+					reportslist1.then(function(response1){
+						
+						Question.find({},function(err, questions){
+							question_details = [
+								questions[0]["question_detail"],
+								questions[1]["question_detail"],
+								questions[2]["question_detail"],
+								questions[3]["question_detail"],
+								questions[4]["question_detail"],
+							]
+
+							
+
+
+
+							StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id',[c2],function(err, reports2){
+								reports2= JSON.parse(JSON.stringify(reports2))
+								if (reports2.length == 0){
+									req.flash('error', 'There are no reports available for one of the courses/weeks')
+
+									res.view('pages/adminpage', {courses:req.session.courses})
+
+								}
+								let reportslist2 = new Promise(function(resolve, reject){
+									var r1=0
+									var r2=0
+									var r3=0
+									var r4=0
+									var r5=0
+									var x=0
+									for (i = 0; i < reports2.length;i++){
+										r1 = r1+reports2[i].response_1
+										r2 = r2+reports2[i].response_2
+										r3 = r3+reports2[i].response_3
+										r4 = r4+reports2[i].response_4
+										r5 = r5+reports2[i].response_5
+
+										x++;
+										if(reports2.length == x){
+											
+											var total =reports2.length
+											var raw={
+												response1:r1,									
+												response2:r2,									
+												response3:r3,									
+												response4:r4,									
+												response5:r5,									
+											}
+											var ratio = [
+											r1/total,
+											r2/total,
+											r3/total,
+											r4/total,
+											r5/total,
+											]
+											var response={
+												raw:raw,
+												ratio:ratio,
+												total:reports2.length
+											}
+											
+											resolve(response)
+										}
+									}
+
+								})
+
+								reportslist2.then(function(response2){
+									
+										res.view('pages/twoclassesreport', {response1:response1,response2:response2, questions:question_details})
+
+
+									})
+
+
+								
+
+
+							})
+//
+
+						})
+
+
+					
+
+					})
+
+
+				})
 			}
 			//neither are all weeks
 			else{
+				StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id AND sr.week = ?',[c1, w1],function(err, reports1){
+					reports1= JSON.parse(JSON.stringify(reports1))
+					if (reports1.length == 0){
+						req.flash('error', 'There are no reports available for one of the courses/weeks')
 
+						res.view('pages/adminpage', {courses:req.session.courses})
+
+					}
+					let reportslist1 = new Promise(function(resolve, reject){
+						var r1=0
+						var r2=0
+						var r3=0
+						var r4=0
+						var r5=0
+						var x=0
+						for (i = 0; i < reports1.length;i++){
+							r1 = r1+reports1[i].response_1
+							r2 = r2+reports1[i].response_2
+							r3 = r3+reports1[i].response_3
+							r4 = r4+reports1[i].response_4
+							r5 = r5+reports1[i].response_5
+
+							x++;
+							if(reports1.length == x){
+								
+								var total =reports1.length
+								var raw={
+									response1:r1,									
+									response2:r2,									
+									response3:r3,									
+									response4:r4,									
+									response5:r5,									
+								}
+								var ratio = [
+								r1/total,
+								r2/total,
+								r3/total,
+								r4/total,
+								r5/total,
+								]
+								var response={
+									raw:raw,
+									ratio:ratio,
+									total:reports1.length
+								}
+								
+								resolve(response)
+							}
+						}
+
+					})
+
+					reportslist1.then(function(response1){
+						
+						Question.find({},function(err, questions){
+							question_details = [
+								questions[0]["question_detail"],
+								questions[1]["question_detail"],
+								questions[2]["question_detail"],
+								questions[3]["question_detail"],
+								questions[4]["question_detail"],
+							]
+
+							
+
+
+
+							StudentReport.query('SELECT r.* FROM student_report sr,reports r WHERE sr.course_id = ? AND r.report_id = sr.report_id AND sr.week = ?',[c2, w2],function(err, reports2){
+								reports2= JSON.parse(JSON.stringify(reports2))
+								if (reports2.length == 0){
+									req.flash('error', 'There are no reports available for one of the courses/weeks')
+
+									res.view('pages/adminpage', {courses:req.session.courses})
+
+								}
+								let reportslist2 = new Promise(function(resolve, reject){
+									var r1=0
+									var r2=0
+									var r3=0
+									var r4=0
+									var r5=0
+									var x=0
+									for (i = 0; i < reports2.length;i++){
+										r1 = r1+reports2[i].response_1
+										r2 = r2+reports2[i].response_2
+										r3 = r3+reports2[i].response_3
+										r4 = r4+reports2[i].response_4
+										r5 = r5+reports2[i].response_5
+
+										x++;
+										if(reports2.length == x){
+											
+											var total =reports2.length
+											var raw={
+												response1:r1,									
+												response2:r2,									
+												response3:r3,									
+												response4:r4,									
+												response5:r5,									
+											}
+											var ratio = [
+											r1/total,
+											r2/total,
+											r3/total,
+											r4/total,
+											r5/total,
+											]
+											var response={
+												raw:raw,
+												ratio:ratio,
+												total:reports2.length
+											}
+											
+											resolve(response)
+										}
+									}
+
+								})
+
+								reportslist2.then(function(response2){
+									
+
+									res.view('pages/twoclassesreport', {response1:response1,response2:response2, questions:question_details})
+
+
+									})
+
+
+								
+
+
+							})
+//
+
+						})
+
+
+					
+
+					})
+
+
+				})
 			}
 
 		}

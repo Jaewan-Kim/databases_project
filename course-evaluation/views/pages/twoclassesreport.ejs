@@ -1,0 +1,30 @@
+
+<div id="logout" >
+    <a class ="userbutton" href="/logout">Logout</a>
+</div>
+
+
+<div id="commentswrapper">
+<br></br>
+    <table>
+    <tr>
+    <th>Question detail</th>
+    <th class="numbertable">Avg Response 1</th>
+    <th class="numbertable">Avg Response 2</th>
+    </tr>
+<% for(var i=0; i < 5; i++) { %>
+    <tr>
+    <td><%= questions[i] %></td>
+    <td class="numbertable"><%= response1["ratio"][i] %></td>
+    <td class="numbertable"><%= response2["ratio"][i] %></td>
+    </tr>
+<% } %> 
+    </table>
+
+    <br></br>
+    ...Total numbers of responses are <%= response1.total %> and <%= response2.total %>
+<br></br>
+</div>
+
+<br></br>
+<a href="javascript:history.back()" class = "userbutton">Create another report</a>
